@@ -5,9 +5,33 @@ import CompleteTask from './CompleteTask'
 import FailedTask from './FailedTask'
 
 const TaskList = ({ data }) => {
+
+    const tasks = [
+        {
+            "active": true,
+            "newTask": false,
+            "completed": false,
+            "failed": false,
+            "taskTitle": "Database optimization",
+            "taskDescription": "Optimize queries for better performance",
+            "taskDate": "2024-10-11",
+            "category": "Database"
+        },
+        {
+            "active": false,
+            "newTask": false,
+            "completed": true,
+            "failed": false,
+            "taskTitle": "Design new feature",
+            "taskDescription": "Create mockups for the new feature",
+            "taskDate": "2024-10-09",
+            "category": "Design"
+        }
+    ]
+
     return (
         <div id='tasklist' className='h-[50%] overflow-x-auto flex items-center justify-start gap-5 flex-nowrap w-full py-1 mt-16'>
-            {data.tasks.map((elem, idx) => {
+            {/* {data.tasks.map((elem, idx) => {
                 if (elem.active) {
                     return <AcceptTask key={idx} data={elem} />
                 }
@@ -21,7 +45,7 @@ const TaskList = ({ data }) => {
                     return <FailedTask key={idx} data={elem} />
                 }
 
-            })}
+            })} */}
         </div>
     )
 }

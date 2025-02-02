@@ -1,14 +1,24 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import coockieParser from 'cookie-parser';
 import connectDB from './config/db.js';
+import userRouter from './routes/user.route.js';
 
 dotenv.config();
 
+connectDB();
+
 const app = express();
 
-app.use(cors());
+app.use(cors({
+    origin: "http://localhost:5173", 
+    credentials: true,
+}));
 app.use(express.json());
+app.use(coockieParser());
+
+app.use('/api/user', userRouter);
 
 const PORT = process.env.PORT || 5000;
 
