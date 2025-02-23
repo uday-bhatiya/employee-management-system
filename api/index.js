@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import coockieParser from 'cookie-parser';
 import connectDB from './config/db.js';
 import userRouter from './routes/user.route.js';
+import taskRouter from './routes/task.route.js';
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ app.use(express.json());
 app.use(coockieParser());
 
 app.use('/api/user', userRouter);
+app.use('/api/task', taskRouter);
 
 const PORT = process.env.PORT || 5000;
 

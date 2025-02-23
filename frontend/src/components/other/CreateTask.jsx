@@ -1,41 +1,48 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../../context/AuthProvider'
+import axios from 'axios';
 
 const CreateTask = () => {
 
-    const [userData, setUserData] = useContext(AuthContext)
+    // const [userData, setUserData] = useContext(AuthContext)
 
     const [taskTitle, setTaskTitle] = useState('')
     const [taskDescription, setTaskDescription] = useState('')
     const [taskDate, setTaskDate] = useState('')
-    const [asignTo, setAsignTo] = useState('')
+    const [asignedTo, setAsignedTo] = useState('')
     const [category, setCategory] = useState('')
+    const [employees, setEmployees] = useState([]);
 
-    const [newTask, setNewTask] = useState({})
-
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
         e.preventDefault()
 
-        setNewTask({ taskTitle, taskDescription, taskDate, category, active: false, newTask: true, failed: false, completed: false })
+        try {
+            const newTask = { taskTitle, taskDescription, taskDate, category, asignedTo: asignedTo || null }
+            // console.log(newTask)
+            const response = await axios.post('http://localhost:5000/api/task/create', newTask, { headers: { 'Content-Type': 'application/json' } });
+            // console.log(response)
 
-        const data = userData
-
-        data.forEach(function (elem) {
-            if (asignTo == elem.firstName) {
-                elem.tasks.push(newTask)
-                elem.taskCounts.newTask = elem.taskCounts.newTask + 1
-            }
-        })
-        setUserData(data)
-        console.log(data);
-
-        setTaskTitle('')
-        setCategory('')
-        setAsignTo('')
-        setTaskDate('')
-        setTaskDescription('')
+        } catch (error) {
+            console.error(error)
+        } finally {
+            setTaskTitle('')
+            setCategory('')
+            setAsignedTo('')
+            setTaskDate('')
+            setTaskDescription('')
+        }
 
     }
+
+    const getALlEmployees = async () => {
+        const response = await axios.get('http://localhost:5000/api/user/getAllEmp', { withCredentials: true });
+        // console.log(response)
+        setEmployees(response.data.employees);
+    }
+
+    useEffect(() => {
+        getALlEmployees();
+    }, []);
 
     return (
         <div className='p-5 bg-[#1c1c1c] mt-5 rounded'>
@@ -66,12 +73,13 @@ const CreateTask = () => {
                     </div>
                     <div>
                         <h3 className='text-sm text-gray-300 mb-0.5'>Asign to</h3>
-                        <input
-                            value={asignTo}
-                            onChange={(e) => {
-                                setAsignTo(e.target.value)
-                            }}
-                            className='text-sm py-1 px-2 w-4/5 rounded outline-none bg-transparent border-[1px] border-gray-400 mb-4' type="text" placeholder='employee name' />
+                        <select value={asignedTo}
+                            onChange={(e) => setAsignedTo(e.target.value)} name="" className='text-sm py-1 px-2 w-4/5 rounded outline-none bg-transparent border-[1px] border-gray-400 mb-4'>
+                            <option value="">Select Employee</option>
+                            {employees.map((emp) => (
+                                <option className='bg-black' key={emp._id} value={emp._id}>{emp.name}</option>
+                            ))}
+                        </select>
                     </div>
                     <div>
                         <h3 className='text-sm text-gray-300 mb-0.5'>Category</h3>

@@ -170,4 +170,24 @@ const logout = async (req, res) => {
     }
 }
 
-export { register, login, getMe, logout }
+const getAllEmploye = async (req, res) => {
+    try {
+        const employees = await User.find({ role: 'employee'}).select("_id, name role");
+
+        if (employees) {
+            return res.status(200).json({
+                success: true,
+                message: "Fetched all employees",
+                employees
+            });
+        }
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Internal server error",
+            error: error.message
+        })
+    }
+}
+
+export { register, login, getMe, logout, getAllEmploye }
