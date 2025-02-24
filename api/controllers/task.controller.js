@@ -38,4 +38,33 @@ const createTask = async (req, res) => {
     }
 }
 
-export { createTask }
+const getAllTask = async (req, res) => {
+    try {
+        const tasks = await Task.find().populate({
+            path: 'asignedTo',
+            select: '-password'
+        });
+
+        if (!tasks) {
+            return res.status(401).json({
+                success: false,
+                message: "Failed to fetch tasks"
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "Tasks fetched successfully",
+            tasks
+        })
+        
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error",
+            error: error.message
+        });
+    }
+}
+
+export { createTask, getAllTask }
