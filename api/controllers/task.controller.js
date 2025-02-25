@@ -67,4 +67,117 @@ const getAllTask = async (req, res) => {
     }
 }
 
-export { createTask, getAllTask }
+const getEmpTask = async (req, res) => {
+    try {
+        const {userId} = req.user;
+
+        // console.log(userId)
+
+        const tasks = await Task.find({
+            asignedTo: userId
+        }).populate({
+            path: 'asignedTo',
+            select: '-password'
+        });
+
+        if (!tasks) {
+            return res.status(401).json({
+                success: false,
+                message: "Failed to fetch tasks"
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "Tasks fetched successfully",
+            tasks
+        })
+        
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error",
+            error: error.message
+        })
+    }
+}
+
+const acceptTask = async (req, res) => {
+    try {
+        const { id } = req.params;
+        if (!id) {
+            return res.status(400).json({ 
+                success: false,
+                message: 'Task ID is required'
+             });
+        }
+        // console.log(id)
+        const updatedTask = await Task.findByIdAndUpdate(
+            id, 
+            { active: true }, 
+            { new: true } // Return updated document
+        );
+
+        if (!updatedTask) {
+            return res.status(404).json({ message: 'Task not found' });
+        }
+
+        res.json(updatedTask);
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error });
+    }
+}
+
+const completeTask = async (req, res) => {
+    try {
+        const { id } = req.params;
+        if (!id) {
+            return res.status(400).json({ 
+                success: false,
+                message: 'Task ID is required'
+             });
+        }
+        // console.log(id)
+        const updatedTask = await Task.findByIdAndUpdate(
+            id, 
+            { completed: true, failed: false }, 
+            { new: true } // Return updated document
+        );
+
+        if (!updatedTask) {
+            return res.status(404).json({ message: 'Task not found' });
+        }
+
+        res.json(updatedTask);
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error });
+    }
+}
+
+const FailTask = async (req, res) => {
+    try {
+        const { id } = req.params;
+        if (!id) {
+            return res.status(400).json({ 
+                success: false,
+                message: 'Task ID is required'
+             });
+        }
+        // console.log(id)
+        const updatedTask = await Task.findByIdAndUpdate(
+            id, 
+            { failed: true, completed: false }, 
+            { new: true } // Return updated document
+        );
+
+        if (!updatedTask) {
+            return res.status(404).json({ message: 'Task not found' });
+        }
+
+        res.json(updatedTask);
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error });
+    }
+}
+
+export { createTask, getAllTask, getEmpTask, acceptTask, completeTask, FailTask }

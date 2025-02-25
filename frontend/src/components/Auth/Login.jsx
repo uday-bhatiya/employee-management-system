@@ -27,6 +27,15 @@ const Login = ({handleLogin}) => {
         try {
             const response = await axios.post('http://localhost:5000/api/user/login', { email, password }, { withCredentials: true });
 
+            const { token } = response.data; // Extract token from response
+
+            if (token) {
+                localStorage.setItem("token", token); // Store token in localStorage
+                console.log("Token saved:", token);
+            } else {
+                console.error("No token received");
+            }
+
             if (!response.data.success) {
                 navigate('/');
             }

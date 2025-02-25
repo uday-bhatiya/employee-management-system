@@ -1,9 +1,35 @@
-import React from 'react'
+import React, { useState } from 'react'
+import axios from 'axios';
 
 const NewTask = ({data}) => {
+    // console.log(data)
+    const [task, setTask] = useState(data); 
+
+    const handleAcceptTask = async () => {
+        try {
+
+            const token = localStorage.getItem("token");
+            const response = await axios.patch(
+                `http://localhost:5000/api/task/accept-task/${task._id}`, 
+                {}, // No request body needed
+                {
+                    headers: {
+                        "Authorization": `Bearer ${token}`, // Include token in request
+                        "Content-Type": "application/json"
+                    },
+                    withCredentials: true // Ensure cookies are sent if using sessions
+                }
+            );
+    
+            setTask(response.data); 
+            console.log('Task updated:', response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
     return (
-        <div className='flex-shrink-0 h-full w-[300px] p-5 bg-green-400 rounded-xl'>
-            <div className='flex justify-between items-center'>
+        <div className='flex-shrink-0 h-full w-[300px] p-5 bg-[#000] rounded-xl'>
+            <div className='flex justify-center gap-2 items-center'>
                 <h3 className='bg-red-600 text-sm px-3 py-1 rounded'>{data.category}</h3>
                 <h4 className='text-sm'>{data.taskDate}</h4>
             </div>
@@ -12,7 +38,14 @@ const NewTask = ({data}) => {
                 {data.taskDescription}
             </p>
             <div className='mt-6'>
-                <button className='bg-blue-500 rounded font-medium py-1 px-2 text-xs'>Accept Task</button>
+            <button
+                    onClick={handleAcceptTask}
+                    className={`rounded font-medium py-1 px-2 text-xs ${
+                        task.active ? 'bg-green-500' : 'bg-blue-500'
+                    }`}
+                >
+                    {task.active ? 'Accepted' : 'Accept Task'}
+                </button>
             </div>
         </div>
     )
