@@ -1,6 +1,8 @@
 import React, { useContext, useState } from 'react'
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import toast from 'react-hot-toast';
+import { toastDark } from '../../utils/toast.js';
 
 const Register = () => {
 
@@ -13,12 +15,12 @@ const Register = () => {
     const registerUser = async () => {
 
         if (!name || !email || !password) {
-            alert("All fields are required");
+            toast.error("All fields are required", toastDark);
             return;
         }
 
         if (password.length < 6) {
-            alert("password must be atleast 6 character long");
+            toast.error("Password must be atleast 6 character long", toastDark);
             return;
         }
 
@@ -27,6 +29,7 @@ const Register = () => {
 
             if (response.data.success) {
                 navigate('/')
+                toast.success("Registered successfully!", toastDark);
             }
         } catch (error) {
             console.error(error);

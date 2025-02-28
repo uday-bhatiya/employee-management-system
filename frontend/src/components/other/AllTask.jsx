@@ -37,7 +37,7 @@ const AllTask = () => {
 
   useEffect(() => {
     getAllTasks();
-  }, []);
+  }, [tasks]);
 
   return (
     <div className='bg-[#1c1c1c] p-5 rounded mt-5'>

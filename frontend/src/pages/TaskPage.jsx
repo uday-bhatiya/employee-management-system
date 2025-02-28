@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import toast from 'react-hot-toast';
+import { toastDark } from '../utils/toast';
 
 const TaskPage = () => {
   const { id } = useParams();
@@ -20,8 +22,8 @@ const TaskPage = () => {
         })
       }
 
-      console.log(task)
-      console.log(formData)
+      // console.log(task)
+      // console.log(formData)
 
     } catch (error) {
       console.error(error);
@@ -40,6 +42,7 @@ const TaskPage = () => {
     try {
       await axios.put(`http://localhost:5000/api/task/update-task/${id}`, formData, {withCredentials: true});
       navigate('/adm-dash');
+      toast.success("Task updated!", toastDark);
     } catch (error) {
       console.error(error);
     }
@@ -49,6 +52,7 @@ const TaskPage = () => {
     try {
       await axios.delete(`http://localhost:5000/api/task/delete-task/${id}`, {withCredentials:true});
       navigate('/adm-dash');
+      toast.success("Task deleted!", toastDark);
     } catch (error) {
       console.error(error);
     }

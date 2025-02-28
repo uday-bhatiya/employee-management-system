@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios';
+import toast from 'react-hot-toast';
+import { toastDark } from '../../utils/toast';
 
 const AcceptTask = ({ data }) => {
 
@@ -22,7 +24,7 @@ const AcceptTask = ({ data }) => {
             );
 
             setTask(response.data);
-            console.log('Task updated:', response.data);
+            toast.success("Task completed!", toastDark);
         } catch (error) {
             console.error(error);
         }
@@ -44,7 +46,8 @@ const AcceptTask = ({ data }) => {
             );
 
             setTask(response.data);
-            console.log('Task updated:', response.data);
+            toast.success("Task failed!", toastDark);
+            
         } catch (error) {
             console.error(error);
         }

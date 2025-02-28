@@ -2,6 +2,8 @@ import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthProvider';
+import toast from 'react-hot-toast';
+import { toastDark } from '../../utils/toast.js';
 
 const Login = ({handleLogin}) => {
 
@@ -15,12 +17,12 @@ const Login = ({handleLogin}) => {
     const loginUser = async () => {
 
         if (!email || !password) {
-            alert("All fields are required");
+            toast.error("All fields are required", toastDark);
             return;
         }
 
         if (password.length < 6) {
-            alert("password must be atleast 6 character long");
+            toast.error("Password must be atleast 6 character long", toastDark);
             return;
         }
 
@@ -34,17 +36,22 @@ const Login = ({handleLogin}) => {
                 console.log("Token saved:", token);
             } else {
                 console.error("No token received");
+                toast.error("No token received", toastDark);
             }
 
             if (!response.data.success) {
                 navigate('/');
+                toast.error("Login failed", toastDark);
             }
             if (response.data.user.role === 'employee') {
                 setUser(response.data.user);
                 navigate('/emp-dash');
+                toast.success("Logged in successfully!", toastDark);
+                
             } else {
                 setUser(response.data.user);
                 navigate('/adm-dash');
+                toast.success("Logged in successfully!", toastDark);
             }
         } catch (error) {
             console.error(error);

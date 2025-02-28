@@ -201,7 +201,7 @@ const getTaskById = async (req, res) => {
 
 const updateTask = async (req, res) => {
     try {
-        console.log('Request Body:', req.body);
+        // console.log('Request Body:', req.body);
 
         const updatedTask = await Task.findByIdAndUpdate(
             req.params.id,

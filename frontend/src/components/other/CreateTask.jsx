@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { AuthContext } from '../../context/AuthProvider'
+import {Loader2} from 'lucide-react';
 import axios from 'axios';
+import toast from 'react-hot-toast';
+import { toastDark } from '../../utils/toast';
 
 const CreateTask = () => {
 
-    // const [userData, setUserData] = useContext(AuthContext)
+   const [ loading , setLoading ] = useState(false);
 
     const [taskTitle, setTaskTitle] = useState('')
     const [taskDescription, setTaskDescription] = useState('')
@@ -17,10 +19,12 @@ const CreateTask = () => {
         e.preventDefault()
 
         try {
+            setLoading(true);
             const newTask = { taskTitle, taskDescription, taskDate, category, asignedTo: asignedTo || null }
             // console.log(newTask)
             const response = await axios.post('http://localhost:5000/api/task/create', newTask, { headers: { 'Content-Type': 'application/json' } });
             // console.log(response)
+            toast.success("Task created!", toastDark);
 
         } catch (error) {
             console.error(error)
@@ -30,6 +34,7 @@ const CreateTask = () => {
             setAsignedTo('')
             setTaskDate('')
             setTaskDescription('')
+            setLoading(false);
         }
 
     }
@@ -75,7 +80,7 @@ const CreateTask = () => {
                         <h3 className='text-sm text-gray-300 mb-0.5'>Asign to</h3>
                         <select value={asignedTo}
                             onChange={(e) => setAsignedTo(e.target.value)} name="" className='text-sm py-1 px-2 w-4/5 rounded outline-none bg-transparent border-[1px] border-gray-400 mb-4'>
-                            <option value="">Select Employee</option>
+                            <option className='bg-black' value="">Select Employee</option>
                             {employees.map((emp) => (
                                 <option className='bg-black' key={emp._id} value={emp._id}>{emp.name}</option>
                             ))}
@@ -98,7 +103,7 @@ const CreateTask = () => {
                         onChange={(e) => {
                             setTaskDescription(e.target.value)
                         }} className='w-full h-44 text-sm py-2 px-4 rounded outline-none bg-transparent border-[1px] border-gray-400' name="" id=""></textarea>
-                    <button className='bg-emerald-500 py-3 hover:bg-emerald-600 px-5 rounded text-sm mt-4 w-full'>Create Task</button>
+                    <button className='bg-emerald-500 flex items-center justify-center py-3 hover:bg-emerald-600 px-5 rounded text-sm mt-4 w-full'>{loading? <Loader2  className='animate-spin' /> : "Create Task"}</button>
                 </div>
 
             </form>

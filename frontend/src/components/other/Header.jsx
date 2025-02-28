@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { toastDark } from '../../utils/toast.js';
 
 const Header = () => {
 
@@ -14,6 +16,7 @@ const Header = () => {
       const response = await axios.get('http://localhost:5000/api/user/logout', { withCredentials: true });
       if (response.data.success) {
         navigate('/');
+        toast.success("Logged out successfully!", toastDark);
       }
     } catch (error) {
       console.error(error);
