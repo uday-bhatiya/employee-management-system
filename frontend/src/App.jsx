@@ -4,6 +4,7 @@ import EmployeeDashboard from './components/Dashboard/EmployeeDashboard'
 import AdminDashboard from './components/Dashboard/AdminDashboard'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Register from './components/Auth/Register'
+import TaskPage from './pages/TaskPage';
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
       <Route path='/register' element={<Register />} />
       <Route path='/emp-dash' element={<EmployeeDashboard />} />
       <Route path='/adm-dash' element={<AdminDashboard />} />
+      <Route path='/task/:id' element={<TaskPage />} />
      </Routes>
      </BrowserRouter>
     </>

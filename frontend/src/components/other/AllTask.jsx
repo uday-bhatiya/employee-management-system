@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const AllTask = () => {
   const [tasks, setTasks] = useState([]);
@@ -55,6 +56,7 @@ const AllTask = () => {
             <h5 className='text-lg font-medium w-1/5 text-yellow-400'>{task.active ? "Yes" : "No"}</h5>
             <h5 className='text-lg font-medium w-1/5 text-white'>{task.completed ? "Yes" : "No"}</h5>
             <h5 className='text-lg font-medium w-1/5 text-red-600'>{task.failed ? "Yes" : "No"}</h5>
+           <Link to={`/task/${task._id}`}><button className='border border-zinc-100 hover:border-zinc-400 py-1 px-6'>Edit</button></Link>
           </div>
         ))}
       </div>
