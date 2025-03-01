@@ -114,7 +114,7 @@ const acceptTask = async (req, res) => {
         // console.log(id)
         const updatedTask = await Task.findByIdAndUpdate(
             id,
-            { active: true },
+            { active: true, newTask: false },
             { new: true } // Return updated document
         );
 
