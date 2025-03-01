@@ -5,7 +5,9 @@ import { AuthContext } from '../../context/AuthProvider';
 import toast from 'react-hot-toast';
 import { toastDark } from '../../utils/toast.js';
 
-const Login = ({handleLogin}) => {
+
+const Login = () => {
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -27,7 +29,7 @@ const Login = ({handleLogin}) => {
         }
 
         try {
-            const response = await axios.post('http://localhost:5000/api/user/login', { email, password }, { withCredentials: true });
+            const response = await axios.post(`${API_BASE_URL}user/login`, { email, password }, { withCredentials: true });
 
             const { token } = response.data; // Extract token from response
 

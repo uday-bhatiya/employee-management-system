@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 const AllTask = () => {
   const [tasks, setTasks] = useState([]);
   const [counts, setCounts] = useState({
@@ -13,7 +15,7 @@ const AllTask = () => {
 
   const getAllTasks = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/task/get-tasks');
+      const response = await axios.get(`${API_BASE_URL}task/get-tasks`);
       if (response.data.success) {
         setTasks(response.data.tasks);
 

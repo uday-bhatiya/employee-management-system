@@ -4,6 +4,8 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { toastDark } from '../utils/toast';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 const TaskPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -12,7 +14,7 @@ const TaskPage = () => {
 
   const fetchTask = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/task/get-task/${id}`, {withCredentials: true});
+      const response = await axios.get(`${API_BASE_URL}task/get-task/${id}`, {withCredentials: true});
       if (response.data.success) {
         setTask(response.data.task);
         setFormData({
@@ -40,7 +42,7 @@ const TaskPage = () => {
 
   const handleUpdate = async () => {
     try {
-      await axios.put(`http://localhost:5000/api/task/update-task/${id}`, formData, {withCredentials: true});
+      await axios.put(`${API_BASE_URL}task/update-task/${id}`, formData, {withCredentials: true});
       navigate('/adm-dash');
       toast.success("Task updated!", toastDark);
     } catch (error) {
@@ -50,7 +52,7 @@ const TaskPage = () => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:5000/api/task/delete-task/${id}`, {withCredentials:true});
+      await axios.delete(`${API_BASE_URL}task/delete-task/${id}`, {withCredentials:true});
       navigate('/adm-dash');
       toast.success("Task deleted!", toastDark);
     } catch (error) {

@@ -3,6 +3,8 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { toastDark } from '../../utils/toast';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 const AcceptTask = ({ data }) => {
 
     const [task, setTask] = useState(data);
@@ -12,7 +14,7 @@ const AcceptTask = ({ data }) => {
 
             const token = localStorage.getItem("token");
             const response = await axios.patch(
-                `http://localhost:5000/api/task/complete-task/${task._id}`,
+                `${API_BASE_URL}task/complete-task/${task._id}`,
                 {}, // No request body needed
                 {
                     headers: {
@@ -34,7 +36,7 @@ const AcceptTask = ({ data }) => {
 
             const token = localStorage.getItem("token");
             const response = await axios.patch(
-                `http://localhost:5000/api/task/fail-task/${task._id}`,
+                `${API_BASE_URL}task/fail-task/${task._id}`,
                 {}, 
                 {
                     headers: {

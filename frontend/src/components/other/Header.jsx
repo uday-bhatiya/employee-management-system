@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { toastDark } from '../../utils/toast.js';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 const Header = () => {
 
   const {user} = useContext(AuthContext);
@@ -13,7 +15,7 @@ const Header = () => {
 
   const logOutUser = async ()=>{
     try {
-      const response = await axios.get('http://localhost:5000/api/user/logout', { withCredentials: true });
+      const response = await axios.get(`${API_BASE_URL}user/logout`, { withCredentials: true });
       if (response.data.success) {
         navigate('/');
         toast.success("Logged out successfully!", toastDark);

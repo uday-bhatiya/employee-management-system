@@ -4,6 +4,8 @@ import TaskListNumbers from '../other/TaskListNumbers'
 import TaskList from '../TaskList/TaskList'
 import axios from 'axios'
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 const EmployeeDashboard = () => {
 
   const [tasks, setTasks] = useState([]);
@@ -15,7 +17,7 @@ const EmployeeDashboard = () => {
     });
 
   const getTasks = async () => {
-    const response = await axios.get('http://localhost:5000/api/task/get-emp-tasks', {withCredentials: true});
+    const response = await axios.get(`${API_BASE_URL}task/get-emp-tasks`, {withCredentials: true});
     // console.log(response)
     if (response.data.success) {
       setTasks(response.data.tasks)
