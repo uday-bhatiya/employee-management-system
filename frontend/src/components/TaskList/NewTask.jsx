@@ -6,7 +6,7 @@ import { toastDark } from '../../utils/toast';
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const NewTask = ({data}) => {
-    // console.log(data)
+   
     const [task, setTask] = useState(data); 
 
     const handleAcceptTask = async () => {

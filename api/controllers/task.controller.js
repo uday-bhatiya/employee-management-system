@@ -71,8 +71,6 @@ const getEmpTask = async (req, res) => {
     try {
         const { userId } = req.user;
 
-        // console.log(userId)
-
         const tasks = await Task.find({
             asignedTo: userId
         }).populate({
@@ -111,7 +109,7 @@ const acceptTask = async (req, res) => {
                 message: 'Task ID is required'
             });
         }
-        // console.log(id)
+
         const updatedTask = await Task.findByIdAndUpdate(
             id,
             { active: true, newTask: false },
@@ -137,7 +135,6 @@ const completeTask = async (req, res) => {
                 message: 'Task ID is required'
             });
         }
-        // console.log(id)
         const updatedTask = await Task.findByIdAndUpdate(
             id,
             { completed: true, failed: false },
@@ -163,7 +160,6 @@ const FailTask = async (req, res) => {
                 message: 'Task ID is required'
             });
         }
-        // console.log(id)
         const updatedTask = await Task.findByIdAndUpdate(
             id,
             { failed: true, completed: false },
@@ -201,7 +197,7 @@ const getTaskById = async (req, res) => {
 
 const updateTask = async (req, res) => {
     try {
-        // console.log('Request Body:', req.body);
+       
 
         const updatedTask = await Task.findByIdAndUpdate(
             req.params.id,
@@ -219,7 +215,7 @@ const updateTask = async (req, res) => {
             success: true,
             task: updatedTask
         });
-        console.log(updatedTask)
+   
     } catch (error) {
         res.status(500).json({
             success: false, message:

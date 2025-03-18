@@ -23,9 +23,9 @@ const CreateTask = () => {
         try {
             setLoading(true);
             const newTask = { taskTitle, taskDescription, taskDate, category, asignedTo: asignedTo || null }
-            // console.log(newTask)
+           
             const response = await axios.post(`${API_BASE_URL}task/create`, newTask, { headers: { 'Content-Type': 'application/json' } });
-            // console.log(response)
+           
             toast.success("Task created!", toastDark);
 
         } catch (error) {
@@ -43,7 +43,7 @@ const CreateTask = () => {
 
     const getALlEmployees = async () => {
         const response = await axios.get('http://localhost:5000/api/user/getAllEmp', { withCredentials: true });
-        // console.log(response)
+        
         setEmployees(response.data.employees);
     }
 

@@ -35,7 +35,7 @@ const Login = () => {
 
             if (token) {
                 localStorage.setItem("token", token); // Store token in localStorage
-                console.log("Token saved:", token);
+           
             } else {
                 console.error("No token received");
                 toast.error("No token received", toastDark);

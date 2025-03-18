@@ -24,9 +24,6 @@ const TaskPage = () => {
         })
       }
 
-      // console.log(task)
-      // console.log(formData)
-
     } catch (error) {
       console.error(error);
     }
