@@ -17,7 +17,7 @@ const app = express();
 const _dirname = path.resolve()
 
 app.use(cors({
-    origin: "http://localhost:5173", 
+    origin: "https://employee-management-system-lhu2.onrender.com/", 
     credentials: true,
 }));
 app.use(express.json());
