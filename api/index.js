@@ -15,7 +15,7 @@ const app = express();
 
 
 app.use(cors({
-    origin: "https://employee-management-system-lhu2.onrender.com/", 
+    origin: "https://employee-management-system-93wb.onrender.com", 
     credentials: true,
 }));
 app.use(express.json());
