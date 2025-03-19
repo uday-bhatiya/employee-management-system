@@ -24,7 +24,7 @@ const CreateTask = () => {
             setLoading(true);
             const newTask = { taskTitle, taskDescription, taskDate, category, asignedTo: asignedTo || null }
            
-            const response = await axios.post(`${API_BASE_URL}task/create`, newTask, { headers: { 'Content-Type': 'application/json' } });
+            const response = await axios.post(`${API_BASE_URL}/task/create`, newTask, { headers: { 'Content-Type': 'application/json' } });
            
             toast.success("Task created!", toastDark);
 

@@ -14,7 +14,7 @@ const TaskPage = () => {
 
   const fetchTask = async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}task/get-task/${id}`, {withCredentials: true});
+      const response = await axios.get(`${API_BASE_URL}/task/get-task/${id}`, {withCredentials: true});
       if (response.data.success) {
         setTask(response.data.task);
         setFormData({
@@ -39,7 +39,7 @@ const TaskPage = () => {
 
   const handleUpdate = async () => {
     try {
-      await axios.put(`${API_BASE_URL}task/update-task/${id}`, formData, {withCredentials: true});
+      await axios.put(`${API_BASE_URL}/task/update-task/${id}`, formData, {withCredentials: true});
       navigate('/adm-dash');
       toast.success("Task updated!", toastDark);
     } catch (error) {
@@ -49,7 +49,7 @@ const TaskPage = () => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`${API_BASE_URL}task/delete-task/${id}`, {withCredentials:true});
+      await axios.delete(`${API_BASE_URL}/task/delete-task/${id}`, {withCredentials:true});
       navigate('/adm-dash');
       toast.success("Task deleted!", toastDark);
     } catch (error) {

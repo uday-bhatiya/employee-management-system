@@ -17,7 +17,7 @@ const EmployeeDashboard = () => {
     });
 
   const getTasks = async () => {
-    const response = await axios.get(`${API_BASE_URL}task/get-emp-tasks`, {withCredentials: true});
+    const response = await axios.get(`${API_BASE_URL}/task/get-emp-tasks`, {withCredentials: true});
 
     if (response.data.success) {
       setTasks(response.data.tasks)

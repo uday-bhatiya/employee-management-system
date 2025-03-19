@@ -29,7 +29,7 @@ const Login = () => {
         }
 
         try {
-            const response = await axios.post(`${API_BASE_URL}user/login`, { email, password }, { withCredentials: true });
+            const response = await axios.post(`${API_BASE_URL}/user/login`, { email, password }, { withCredentials: true });
 
             const { token } = response.data; // Extract token from response
 

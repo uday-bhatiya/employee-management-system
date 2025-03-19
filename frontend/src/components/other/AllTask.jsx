@@ -15,7 +15,7 @@ const AllTask = () => {
 
   const getAllTasks = async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}task/get-tasks`);
+      const response = await axios.get(`${API_BASE_URL}/task/get-tasks`);
       if (response.data.success) {
         setTasks(response.data.tasks);
 

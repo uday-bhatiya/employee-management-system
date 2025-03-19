@@ -14,7 +14,7 @@ const AcceptTask = ({ data }) => {
 
             const token = localStorage.getItem("token");
             const response = await axios.patch(
-                `${API_BASE_URL}task/complete-task/${task._id}`,
+                `${API_BASE_URL}/task/complete-task/${task._id}`,
                 {}, // No request body needed
                 {
                     headers: {
@@ -36,7 +36,7 @@ const AcceptTask = ({ data }) => {
 
             const token = localStorage.getItem("token");
             const response = await axios.patch(
-                `${API_BASE_URL}task/fail-task/${task._id}`,
+                `${API_BASE_URL}/task/fail-task/${task._id}`,
                 {}, 
                 {
                     headers: {

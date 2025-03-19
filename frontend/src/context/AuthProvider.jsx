@@ -11,7 +11,7 @@ const AuthProvider = ({ children }) => {
 
   const getUserData = async () => {
     if (!user === null) {
-      const response = await axios.get(`${API_BASE_URL}user/profile`, { withCredentials: true });
+      const response = await axios.get(`${API_BASE_URL}/user/profile`, { withCredentials: true });
       if (response.data.success) {
         setUser(response.data.user);
       }

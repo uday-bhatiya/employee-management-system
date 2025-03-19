@@ -14,7 +14,7 @@ const NewTask = ({data}) => {
 
             const token = localStorage.getItem("token");
             const response = await axios.patch(
-                `${API_BASE_URL}task/accept-task/${task._id}`, 
+                `${API_BASE_URL}/task/accept-task/${task._id}`, 
                 {}, // No request body needed
                 {
                     headers: {

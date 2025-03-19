@@ -15,7 +15,7 @@ const Header = () => {
 
   const logOutUser = async ()=>{
     try {
-      const response = await axios.get(`${API_BASE_URL}user/logout`, { withCredentials: true });
+      const response = await axios.get(`${API_BASE_URL}/user/logout`, { withCredentials: true });
       if (response.data.success) {
         navigate('/');
         toast.success("Logged out successfully!", toastDark);
